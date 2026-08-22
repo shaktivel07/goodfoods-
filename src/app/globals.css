@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   SRM Good Foods – Royal Light & SAP Fiori Tokens
+   ============================================ */
+:root {
+  /* Royal Palette */
+  --color-royal-blue: #0f2b46;
+  --color-royal-blue-dark: #091c30;
+  --color-royal-blue-light: #18436c;
+  --color-royal-gold: #c59b27;
+  --color-royal-gold-dark: #a37c1e;
+  --color-royal-gold-light: #e6b840;
+  --color-royal-gold-bg: #fffdf5;
+
+  /* Primary Brand Colors */
+  --color-primary: #0f2b46;
+  --color-primary-dark: #091c30;
+  --color-primary-light: #18436c;
+  --color-gold: #c59b27;
+  --color-accent: #c59b27;
+
+  /* Light Theme Surfaces (No AI blurred dark boxes!) */
+  --color-bg: #f4f6f9;
+  --color-bg-card: #ffffff;
+  --color-bg-elevated: #f8fafc;
+  --color-bg-glass: #ffffff;
+  --color-bg-subtle: #edf2f7;
+
+  /* Borders - Crisp SAP Structured Borders */
+  --color-border: #dcdfe6;
+  --color-border-active: #c59b27;
+  --color-border-subtle: #e2e8f0;
+
+  /* Text Colors - Pure Slate & Navy */
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-light: #ffffff;
+
+  /* SAP Fiori Status Color Palette */
+  --color-success: #107e3e;
+  --color-warning: #9c6800;
+  --color-error: #bb0000;
+  --color-info: #005a9e;
+
+  /* Spacing & Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows - Elevation & Royal Glow */
+  --shadow-sm: 0 1px 3px rgba(15, 43, 70, 0.06);
+  --shadow-card: 0 2px 8px rgba(15, 43, 70, 0.06), 0 1px 2px rgba(15, 43, 70, 0.04);
+  --shadow-elevated: 0 4px 14px rgba(15, 43, 70, 0.1);
+  --shadow-glow-royal: 0 4px 16px rgba(15, 43, 70, 0.12);
+  --shadow-glow-gold: 0 4px 16px rgba(197, 155, 39, 0.2);
+}
+
+/* ============================================
+   Base Reset & Global Styles
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+/* ============================================
+   Royal Typography
+   ============================================ */
+.font-display {
+  font-family: 'Playfair Display', 'Cinzel', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.font-royal {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   SAP Fiori Solid Containers & Royal Accents
+   ============================================ */
+.sap-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sap-card:hover {
+  border-color: var(--color-border-active);
+  box-shadow: var(--shadow-elevated);
+}
+
+.royal-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-top: 3px solid var(--color-royal-blue);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.gold-accent-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-top: 3px solid var(--color-royal-gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* Glass card fallback replaced with solid light elevated surface */
+.glass-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================
+   Custom Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-in      { animation: fadeIn 0.25s ease both; }
+.animate-slide-right  { animation: slideInRight 0.25s ease both; }
+.animate-scale-in     { animation: scaleIn 0.2s ease both; }
+.animate-spin-custom  { animation: spin 1s linear infinite; }
+
+.stagger-1 { animation-delay: 0.04s; }
+.stagger-2 { animation-delay: 0.08s; }
+.stagger-3 { animation-delay: 0.12s; }
+.stagger-4 { animation-delay: 0.16s; }
+
+/* ============================================
+   Skeleton Loading
+   ============================================ */
+.skeleton {
+  background: linear-gradient(90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   SAP Fiori Crisp Status Badges
+   ============================================ */
+.badge-pending {
+  background: #fff8e5;
+  color: #9c6800;
+  border: 1px solid #ffe699;
+}
+.badge-confirmed {
+  background: #e8f3ff;
+  color: #005a9e;
+  border: 1px solid #b8dcff;
+}
+.badge-outfordelivery {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border: 1px solid #e9d5ff;
+}
+.badge-delivered {
+  background: #e5f9ed;
+  color: #107e3e;
+  border: 1px solid #bcf0cf;
+}
+.badge-cancelled {
+  background: #ffebeb;
+  color: #bb0000;
+  border: 1px solid #ffb3b3;
+}
+.badge-available {
+  background: #e5f9ed;
+  color: #107e3e;
+  border: 1px solid #bcf0cf;
+}
+.badge-hidden {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+/* ============================================
+   Utility: Royal Gold & Blue Gradient Text
+   ============================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #0f2b46, #c59b27);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #c59b27, #8a640f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   Button Base Styles (Royal & SAP Fiori)
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  min-height: 44px; /* Mobile first tap target height */
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-royal-blue), var(--color-royal-blue-light));
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(15, 43, 70, 0.2);
+  border: 1px solid var(--color-royal-blue);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-royal-blue-dark), var(--color-royal-blue));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 43, 70, 0.3);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--color-royal-gold), var(--color-royal-gold-dark));
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(197, 155, 39, 0.25);
+  border: 1px solid var(--color-royal-gold);
+}
+
+.btn-gold:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-royal-gold-dark), #75550a);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(197, 155, 39, 0.35);
+}
+
+.btn-ghost {
+  background: #ffffff;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--color-bg-elevated);
+  color: var(--color-royal-blue);
+  border-color: var(--color-royal-blue);
+}
+
+.btn-danger {
+  background: #ffebeb;
+  color: #bb0000;
+  border: 1px solid #ffb3b3;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #ffd6d6;
+}
+
+/* ============================================
+   Form Input Styles (SAP Crisp Fiori Inputs)
+   ============================================ */
+.input {
+  width: 100%;
+  min-height: 44px; /* Mobile tap target */
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.input::placeholder { color: var(--color-text-muted); }
+
+.input:focus {
+  border-color: var(--color-royal-blue);
+  box-shadow: 0 0 0 3px rgba(15, 43, 70, 0.12);
+}
+
+.input-error {
+  border-color: var(--color-error) !important;
+  box-shadow: 0 0 0 3px rgba(187, 0, 0, 0.12) !important;
+}
+
+select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+
+/* ============================================
+   Mobile-first & SAP Layout Helpers
+   ============================================ */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .page-container { padding: 0 24px; }
+}
+
+@media (min-width: 1024px) {
+  .page-container { padding: 0 32px; }
+}
+
+/* Mobile vs Desktop responsive visibility */
+@media (max-width: 767px) {
+  .desktop-only { display: none !important; }
+  .mobile-bottom-padding { padding-bottom: 80px !important; }
+}
+
+@media (min-width: 768px) {
+  .mobile-only-nav { display: none !important; }
+}
