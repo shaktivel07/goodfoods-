@@ -21,7 +21,7 @@ function Modal({ title, children, onClose }: { title: string; children: React.Re
 }
 
 export default function AdminMenuPage() {
-  const { user, isAdmin, loading, idToken } = useAuth();
+  const { user, isAdmin, isDelivery, loading, idToken } = useAuth();
   const router = useRouter();
   const [items, setItems] = useState<MenuItem[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -35,9 +35,10 @@ export default function AdminMenuPage() {
   useEffect(() => {
     if (!loading) {
       if (!user) router.push('/');
+      else if (isDelivery && !isAdmin) router.push('/delivery');
       else if (!isAdmin) router.push('/menu');
     }
-  }, [user, isAdmin, loading, router]);
+  }, [user, isAdmin, isDelivery, loading, router]);
 
   const fetchItems = () => {
     if (!idToken) return;

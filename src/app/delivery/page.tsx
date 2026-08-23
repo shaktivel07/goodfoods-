@@ -169,24 +169,22 @@ export default function DeliveryPortalPage() {
   return (
     <div style={{ minHeight: '100dvh', background: 'var(--color-bg)' }}>
       <Navbar />
-      <main className="page-container" style={{ paddingTop: '24px', paddingBottom: '80px', maxWidth: '900px' }}>
+      <main className="page-container mobile-bottom-padding" style={{ paddingTop: '20px', maxWidth: '900px' }}>
         {/* Header */}
-        <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
           <div>
-            <h1 className="font-royal" style={{ fontSize: '24px', color: 'var(--color-royal-blue)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h1 className="font-royal" style={{ fontSize: '22px', color: 'var(--color-royal-blue)', fontWeight: 700 }}>
               🛵 DELIVERY PORTAL
             </h1>
-            <p style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
-              SRM Campus Order Dispatch & OTP Verification
-            </p>
+            <p style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>SRM Campus • OTP Verification</p>
           </div>
-          <button onClick={fetchOrders} className="btn btn-ghost" style={{ padding: '8px 14px', fontSize: '13px' }}>
+          <button onClick={fetchOrders} className="btn btn-ghost" style={{ padding: '8px 14px', fontSize: '13px', minHeight: '40px' }}>
             🔄 Refresh
           </button>
         </div>
 
-        {/* Tab Badges */}
-        <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '20px' }}>
+        {/* Tab Badges — horizontal scroll on mobile */}
+        <div className="scroll-pills" style={{ marginBottom: '16px' }}>
           {[
             { id: 'DISPATCHED', label: `🛵 Dispatched (${dispatchedCount})` },
             { id: 'PENDING', label: `⏳ Kitchen (${pendingCount})` },

@@ -22,25 +22,25 @@
   --color-gold: #c59b27;
   --color-accent: #c59b27;
 
-  /* Light Theme Surfaces (No AI blurred dark boxes!) */
+  /* Light Theme Surfaces */
   --color-bg: #f4f6f9;
   --color-bg-card: #ffffff;
   --color-bg-elevated: #f8fafc;
   --color-bg-glass: #ffffff;
   --color-bg-subtle: #edf2f7;
 
-  /* Borders - Crisp SAP Structured Borders */
+  /* Borders */
   --color-border: #dcdfe6;
   --color-border-active: #c59b27;
   --color-border-subtle: #e2e8f0;
 
-  /* Text Colors - Pure Slate & Navy */
+  /* Text Colors */
   --color-text-primary: #1e293b;
   --color-text-secondary: #475569;
   --color-text-muted: #64748b;
   --color-text-light: #ffffff;
 
-  /* SAP Fiori Status Color Palette */
+  /* Status Colors */
   --color-success: #107e3e;
   --color-warning: #9c6800;
   --color-error: #bb0000;
@@ -53,16 +53,20 @@
   --radius-xl: 16px;
   --radius-full: 9999px;
 
-  /* Shadows - Elevation & Royal Glow */
+  /* Shadows */
   --shadow-sm: 0 1px 3px rgba(15, 43, 70, 0.06);
   --shadow-card: 0 2px 8px rgba(15, 43, 70, 0.06), 0 1px 2px rgba(15, 43, 70, 0.04);
   --shadow-elevated: 0 4px 14px rgba(15, 43, 70, 0.1);
   --shadow-glow-royal: 0 4px 16px rgba(15, 43, 70, 0.12);
   --shadow-glow-gold: 0 4px 16px rgba(197, 155, 39, 0.2);
+
+  /* Mobile-safe viewport */
+  --nav-height: 64px;
+  --bottom-nav-height: 64px;
 }
 
 /* ============================================
-   Base Reset & Global Styles
+   Base Reset & Global Styles — Mobile First
    ============================================ */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -73,6 +77,9 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--color-bg);
+  /* Prevent text size inflation on mobile */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -83,6 +90,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
 }
 
 /* ============================================
@@ -99,7 +108,7 @@ body {
 }
 
 /* ============================================
-   SAP Fiori Solid Containers & Royal Accents
+   SAP Fiori Cards
    ============================================ */
 .sap-card {
   background: var(--color-bg-card);
@@ -130,7 +139,6 @@ body {
   box-shadow: var(--shadow-card);
 }
 
-/* Glass card fallback replaced with solid light elevated surface */
 .glass-card {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
@@ -141,18 +149,10 @@ body {
 /* ============================================
    Custom Scrollbar
    ============================================ */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
 /* ============================================
    Animations
@@ -196,57 +196,25 @@ body {
    Skeleton Loading
    ============================================ */
 .skeleton {
-  background: linear-gradient(90deg,
-    #e2e8f0 25%,
-    #f1f5f9 50%,
-    #e2e8f0 75%
-  );
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
   border-radius: var(--radius-sm);
 }
 
 /* ============================================
-   SAP Fiori Crisp Status Badges
+   Status Badges
    ============================================ */
-.badge-pending {
-  background: #fff8e5;
-  color: #9c6800;
-  border: 1px solid #ffe699;
-}
-.badge-confirmed {
-  background: #e8f3ff;
-  color: #005a9e;
-  border: 1px solid #b8dcff;
-}
-.badge-outfordelivery {
-  background: #f3e8ff;
-  color: #6b21a8;
-  border: 1px solid #e9d5ff;
-}
-.badge-delivered {
-  background: #e5f9ed;
-  color: #107e3e;
-  border: 1px solid #bcf0cf;
-}
-.badge-cancelled {
-  background: #ffebeb;
-  color: #bb0000;
-  border: 1px solid #ffb3b3;
-}
-.badge-available {
-  background: #e5f9ed;
-  color: #107e3e;
-  border: 1px solid #bcf0cf;
-}
-.badge-hidden {
-  background: #f1f5f9;
-  color: #64748b;
-  border: 1px solid #cbd5e1;
-}
+.badge-pending       { background: #fff8e5; color: #9c6800; border: 1px solid #ffe699; }
+.badge-confirmed     { background: #e8f3ff; color: #005a9e; border: 1px solid #b8dcff; }
+.badge-outfordelivery { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+.badge-delivered     { background: #e5f9ed; color: #107e3e; border: 1px solid #bcf0cf; }
+.badge-cancelled     { background: #ffebeb; color: #bb0000; border: 1px solid #ffb3b3; }
+.badge-available     { background: #e5f9ed; color: #107e3e; border: 1px solid #bcf0cf; }
+.badge-hidden        { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
 
 /* ============================================
-   Utility: Royal Gold & Blue Gradient Text
+   Gradient Text
    ============================================ */
 .gradient-text {
   background: linear-gradient(135deg, #0f2b46, #c59b27);
@@ -263,15 +231,15 @@ body {
 }
 
 /* ============================================
-   Button Base Styles (Royal & SAP Fiori)
+   Buttons — Mobile-first (min 48px tap targets)
    ============================================ */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 18px;
-  min-height: 44px; /* Mobile first tap target height */
+  padding: 12px 20px;
+  min-height: 48px;
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 600;
@@ -282,12 +250,14 @@ body {
   position: relative;
   overflow: hidden;
   user-select: none;
+  /* Prevent text from wrapping on small buttons */
+  white-space: nowrap;
+  /* Full touch support */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .btn-primary {
   background: linear-gradient(135deg, var(--color-royal-blue), var(--color-royal-blue-light));
@@ -302,6 +272,8 @@ body {
   box-shadow: 0 4px 12px rgba(15, 43, 70, 0.3);
 }
 
+.btn-primary:active:not(:disabled) { transform: translateY(0); }
+
 .btn-gold {
   background: linear-gradient(135deg, var(--color-royal-gold), var(--color-royal-gold-dark));
   color: #ffffff;
@@ -315,6 +287,8 @@ body {
   box-shadow: 0 4px 12px rgba(197, 155, 39, 0.35);
 }
 
+.btn-gold:active:not(:disabled) { transform: translateY(0); }
+
 .btn-ghost {
   background: #ffffff;
   color: var(--color-text-secondary);
@@ -327,31 +301,47 @@ body {
   border-color: var(--color-royal-blue);
 }
 
+.btn-secondary {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #e2e8f0;
+  color: var(--color-royal-blue);
+}
+
 .btn-danger {
   background: #ffebeb;
   color: #bb0000;
   border: 1px solid #ffb3b3;
 }
 
-.btn-danger:hover:not(:disabled) {
-  background: #ffd6d6;
+.btn-danger:hover:not(:disabled) { background: #ffd6d6; }
+
+/* Full-width button utility */
+.btn-block {
+  width: 100%;
 }
 
 /* ============================================
-   Form Input Styles (SAP Crisp Fiori Inputs)
+   Form Inputs — Mobile-first (48px tap targets)
    ============================================ */
 .input {
   width: 100%;
-  min-height: 44px; /* Mobile tap target */
+  min-height: 48px;
   background: #ffffff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  padding: 12px 14px;
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: 16px; /* 16px prevents iOS zoom on focus */
   font-family: 'Inter', sans-serif;
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .input::placeholder { color: var(--color-text-muted); }
@@ -368,6 +358,7 @@ body {
 
 select.input {
   appearance: none;
+  -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -375,7 +366,7 @@ select.input {
 }
 
 /* ============================================
-   Mobile-first & SAP Layout Helpers
+   Layout Helpers — Mobile-first
    ============================================ */
 .page-container {
   max-width: 1200px;
@@ -391,12 +382,261 @@ select.input {
   .page-container { padding: 0 32px; }
 }
 
-/* Mobile vs Desktop responsive visibility */
+/* ============================================
+   Responsive Visibility
+   ============================================ */
+
+/* Hidden on mobile (<768px) */
 @media (max-width: 767px) {
   .desktop-only { display: none !important; }
-  .mobile-bottom-padding { padding-bottom: 80px !important; }
+}
+
+/* Hidden on desktop (>=768px) */
+@media (min-width: 768px) {
+  .mobile-only { display: none !important; }
+  .mobile-only-nav { display: none !important; }
+}
+
+/* ============================================
+   Mobile Bottom Safe Spacing
+   Accounts for BottomNav (64px) + safe-area-inset
+   ============================================ */
+.mobile-bottom-padding {
+  padding-bottom: 80px;
+}
+
+@media (max-width: 767px) {
+  .mobile-bottom-padding {
+    padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px) + 16px) !important;
+  }
+}
+
+/* ============================================
+   Category Scroll Pills (horizontal scroll, no
+   scrollbar on mobile)
+   ============================================ */
+.scroll-pills {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-pills::-webkit-scrollbar { display: none; }
+
+/* ============================================
+   Menu Grid — Responsive
+   ============================================ */
+.menu-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 480px) {
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .menu-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1200px) {
+  .menu-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ============================================
+   KPI Cards Grid — Responsive
+   ============================================ */
+.kpi-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 640px) {
+  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .kpi-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+}
+
+/* ============================================
+   Filter Grid — Responsive
+   ============================================ */
+.filter-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (min-width: 640px) {
+  .filter-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ============================================
+   Checkout & Form Layout
+   ============================================ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   Admin Layout
+   ============================================ */
+.admin-layout {
+  display: flex;
+  min-height: 100dvh;
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  background: var(--color-bg);
+  padding: 24px 20px 80px;
+}
+
+@media (max-width: 767px) {
+  .admin-main {
+    padding: 16px 12px 80px;
+  }
+}
+
+/* ============================================
+   Sticky Filter Bar
+   ============================================ */
+.sticky-filter {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 50;
+  background: var(--color-bg);
+  padding: 10px 0 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+/* ============================================
+   Floating Action Button (Mobile)
+   ============================================ */
+.mobile-fab {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-height) + 16px);
+  right: 16px;
+  z-index: 90;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-glow-gold), var(--shadow-elevated);
 }
 
 @media (min-width: 768px) {
-  .mobile-only-nav { display: none !important; }
+  .mobile-fab {
+    bottom: 24px;
+    right: 24px;
+  }
+}
+
+/* ============================================
+   Touch-friendly tap highlight removal
+   ============================================ */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ============================================
+   Image — prevent layout shift
+   ============================================ */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ============================================
+   Delivery Portal Full-Screen Mobile Layout
+   ============================================ */
+.delivery-portal {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.delivery-portal-header {
+  background: var(--color-royal-blue);
+  color: #fff;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px solid var(--color-royal-gold);
+}
+
+.delivery-portal-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ============================================
+   Order Card — Mobile Optimised
+   ============================================ */
+.order-card-mobile {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+}
+
+.order-card-mobile:active {
+  transform: scale(0.99);
+  border-color: var(--color-royal-gold);
+}
+
+/* ============================================
+   Horizontal Scroll Table (Admin on mobile)
+   ============================================ */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+/* ============================================
+   Modal — Mobile Full-Screen
+   ============================================ */
+@media (max-width: 480px) {
+  .modal-container {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .modal-box {
+    width: 100%;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
+    max-height: 90dvh;
+    overflow-y: auto;
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
 }

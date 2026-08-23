@@ -7,7 +7,7 @@ import AdminSidebar from '@/components/layout/AdminSidebar';
 import { useAuth } from '@/context/AuthContext';
 
 export default function AdminDeliveryStaffPage() {
-  const { user, isAdmin, loading, idToken } = useAuth();
+  const { user, isAdmin, isDelivery, loading, idToken } = useAuth();
   const router = useRouter();
   const [emails, setEmails] = useState<string[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -19,9 +19,10 @@ export default function AdminDeliveryStaffPage() {
   useEffect(() => {
     if (!loading) {
       if (!user) router.push('/');
+      else if (isDelivery && !isAdmin) router.push('/delivery');
       else if (!isAdmin) router.push('/menu');
     }
-  }, [user, isAdmin, loading, router]);
+  }, [user, isAdmin, isDelivery, loading, router]);
 
   const fetchStaff = useCallback(async () => {
     if (!idToken || !isAdmin) return;

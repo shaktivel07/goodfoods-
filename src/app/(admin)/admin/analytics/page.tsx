@@ -24,7 +24,7 @@ function StatCard({ label, value, icon, color }: { label: string; value: string 
 }
 
 export default function AdminAnalyticsPage() {
-  const { user, isAdmin, loading, idToken } = useAuth();
+  const { user, isAdmin, isDelivery, loading, idToken } = useAuth();
   const router = useRouter();
   const [data, setData] = useState<AnalyticsSummary | null>(null);
   const [rawOrders, setRawOrders] = useState<Array<Record<string, unknown>>>([]);
@@ -34,9 +34,10 @@ export default function AdminAnalyticsPage() {
   useEffect(() => {
     if (!loading) {
       if (!user) router.push('/');
+      else if (isDelivery && !isAdmin) router.push('/delivery');
       else if (!isAdmin) router.push('/menu');
     }
-  }, [user, isAdmin, loading, router]);
+  }, [user, isAdmin, isDelivery, loading, router]);
 
   useEffect(() => {
     if (!idToken || !isAdmin) return;

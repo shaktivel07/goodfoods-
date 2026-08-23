@@ -18,8 +18,11 @@ const navItems = [
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const { signOut, user, profile } = useAuth();
+  const { signOut, user, profile, isAdmin, isDelivery } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Delivery-only staff should never see the admin sidebar
+  if (!isAdmin || (isDelivery && !isAdmin)) return null;
 
   return (
     <>

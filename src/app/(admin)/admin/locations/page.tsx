@@ -19,7 +19,7 @@ function Modal({ title, children, onClose }: { title: string; children: React.Re
 }
 
 export default function AdminLocationsPage() {
-  const { user, isAdmin, loading, idToken } = useAuth();
+  const { user, isAdmin, isDelivery, loading, idToken } = useAuth();
   const router = useRouter();
   const [locations, setLocations] = useState<Location[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -32,9 +32,10 @@ export default function AdminLocationsPage() {
   useEffect(() => {
     if (!loading) {
       if (!user) router.push('/');
+      else if (isDelivery && !isAdmin) router.push('/delivery');
       else if (!isAdmin) router.push('/menu');
     }
-  }, [user, isAdmin, loading, router]);
+  }, [user, isAdmin, isDelivery, loading, router]);
 
   const fetchLocations = () => {
     if (!idToken) return;

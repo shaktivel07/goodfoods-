@@ -133,14 +133,14 @@ export default function MenuPage() {
   if (loading || fetching) return (
     <div style={{ minHeight: '100dvh', background: 'var(--color-bg)' }}>
       <Navbar />
-      <div className="page-container" style={{ padding: '32px 16px 80px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '16px' }}>
+      <div className="page-container" style={{ paddingTop: '24px', paddingBottom: '80px' }}>
+        <div className="menu-grid">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="sap-card" style={{ height: '320px', padding: '16px' }}>
+            <div key={i} className="sap-card" style={{ height: '300px', padding: '16px' }}>
               <div className="skeleton" style={{ width: '100%', height: '55%', marginBottom: '12px' }} />
               <div className="skeleton" style={{ height: '20px', width: '70%', marginBottom: '8px' }} />
               <div className="skeleton" style={{ height: '14px', width: '100%', marginBottom: '16px' }} />
-              <div className="skeleton" style={{ height: '36px', width: '100%' }} />
+              <div className="skeleton" style={{ height: '44px', width: '100%' }} />
             </div>
           ))}
         </div>
@@ -178,8 +178,8 @@ export default function MenuPage() {
             />
           </div>
 
-          {/* Category Filter Pills */}
-          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '20px' }}>
+          {/* Category Filter Pills — horizontal scroll, no scrollbar on mobile */}
+          <div className="scroll-pills" style={{ marginBottom: '20px' }}>
             {categories.map(cat => (
               <button
                 key={cat}
@@ -195,8 +195,10 @@ export default function MenuPage() {
                   fontWeight: activeCategory === cat ? 700 : 500,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
+                  flexShrink: 0,
                   boxShadow: activeCategory === cat ? 'var(--shadow-sm)' : 'none',
                   transition: 'all 0.2s ease',
+                  minHeight: '40px',
                 }}
               >
                 {cat}
@@ -204,15 +206,15 @@ export default function MenuPage() {
             ))}
           </div>
 
-          {/* Menu Grid */}
+          {/* Menu Grid — responsive CSS class */}
           {filteredItems.length === 0 ? (
             <div className="sap-card" style={{ textAlign: 'center', padding: '60px 24px', color: 'var(--color-text-muted)' }}>
               <div style={{ fontSize: '48px', marginBottom: '12px' }}>🍽️</div>
               <h3 style={{ fontSize: '16px', color: 'var(--color-text-primary)', marginBottom: '4px' }}>No menu items found</h3>
-              <p style={{ fontSize: '13px' }}>Try searching for a different dish name or category filter.</p>
+              <p style={{ fontSize: '13px' }}>Try a different search or category.</p>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '16px' }}>
+            <div className="menu-grid">
               {filteredItems.map((item, idx) => (
                 <div key={item.itemId} className={`stagger-${(idx % 4) + 1}`}>
                   <MenuCard item={item} onAdd={handleAddToCart} addedId={addedId} />
@@ -222,20 +224,12 @@ export default function MenuPage() {
           )}
         </div>
 
-        {/* Floating Cart Button (Desktop & Floating Mobile fallback) */}
+        {/* Floating Cart FAB — both mobile (above bottom nav) and desktop */}
         {totalItems > 0 && (
           <button
             onClick={() => router.push('/cart')}
-            className="btn btn-gold animate-slide-right desktop-only"
-            style={{
-              position: 'fixed',
-              bottom: '24px',
-              right: '24px',
-              padding: '12px 24px',
-              fontSize: '14px',
-              boxShadow: 'var(--shadow-glow-gold), var(--shadow-card)',
-              zIndex: 90,
-            }}
+            className="btn btn-gold animate-slide-right mobile-fab"
+            style={{ padding: '13px 22px', fontSize: '15px', fontWeight: 700 }}
           >
             🛒 View Cart ({totalItems})
           </button>

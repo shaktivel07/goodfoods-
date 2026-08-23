@@ -15,6 +15,18 @@ export const metadata: Metadata = {
     description: 'Fresh campus food, delivered to you.',
     type: 'website',
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    viewportFit: 'cover',
+  },
+  themeColor: '#0f2b46',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'SRM Good Foods',
+  },
 };
 
 export default function RootLayout({
