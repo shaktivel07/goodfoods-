@@ -1,9 +1,18 @@
 // src/app/layout.tsx
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { CartProvider } from '@/context/CartContext';
 import BottomNav from '@/components/layout/BottomNav';
+
+// ✅ Viewport must be a separate export in Next.js 13+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#0f2b46',
+};
 
 export const metadata: Metadata = {
   title: 'SRM Good Foods – Campus Food Ordering',
@@ -15,17 +24,20 @@ export const metadata: Metadata = {
     description: 'Fresh campus food, delivered to you.',
     type: 'website',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    viewportFit: 'cover',
-  },
-  themeColor: '#0f2b46',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'SRM Good Foods',
+  },
+  // ✅ Favicon via metadata API (Next.js 13+)
+  icons: {
+    icon: [
+      { url: '/goodfoods.PNG', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/goodfoods.PNG', type: 'image/png' },
+    ],
+    shortcut: '/goodfoods.PNG',
   },
 };
 
@@ -43,7 +55,10 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
           rel="stylesheet"
         />
+        {/* Explicit fallback favicon tags for maximum browser compatibility */}
         <link rel="icon" href="/goodfoods.PNG" type="image/png" />
+        <link rel="apple-touch-icon" href="/goodfoods.PNG" />
+        <link rel="shortcut icon" href="/goodfoods.PNG" />
       </head>
       <body>
         <AuthProvider>
